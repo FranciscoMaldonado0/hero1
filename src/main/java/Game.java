@@ -8,6 +8,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
 import java.io.IOException;
+import java.security.Key;
 
 public class Game {
     private Screen screen;
@@ -43,15 +44,17 @@ public class Game {
     public void run() throws IOException{
         while(true){
             draw();
-        KeyStroke key = screen.readInput();
-        processKey(key);
+            KeyStroke key = screen.readInput();
+            processKey(key);
+            if(key.getKeyType() == KeyType.Character)
+                break;
         }
+
     }
     private void processKey(KeyStroke key) throws IOException{
         System.out.println(key);
-        if (key.getKeyType() == KeyType.ArrowUp){
+        if (key.getKeyType() == KeyType.ArrowUp)
             y--;
-        }
         else if (key.getKeyType() == KeyType.ArrowDown)
             y++;
         else if (key.getKeyType() == KeyType.ArrowLeft)
